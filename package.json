@@ -1,0 +1,46 @@
+{
+  "name": "reactNativeReduxSidemenuTabbarStarter",
+  "version": "0.1.0",
+  "author": "Erwan DATIN (MacKentoch)",
+  "license": "MIT",
+  "description": "React Native Redux alternate iOS fast starter with sidemenu and tabbar",
+  "keywords": [
+    "React",
+    "native",
+    "Native",
+    "react",
+    "redux",
+    "starter",
+    "es6",
+    "ES6",
+    "ES2015"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MacKentoch/reactNativeReduxSidemenuTabbarStarter.git"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "moment": "^2.15.1",
+    "react": "15.3.2",
+    "react-addons-shallow-compare": "^15.3.2",
+    "react-native": "0.34.1",
+    "react-native-animatable": "^0.6.1",
+    "react-native-dismiss-keyboard": "^1.0.0",
+    "react-native-side-menu": "^0.20.1",
+    "react-native-vector-icons": "^2.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.0.0",
+    "eslint": "^3.7.0",
+    "eslint-plugin-react": "^6.3.0",
+    "eslint-plugin-react-native": "^2.0.0",
+    "flow-bin": "^0.33.0",
+    "redux-logger": "^2.6.1"
+  }
+}

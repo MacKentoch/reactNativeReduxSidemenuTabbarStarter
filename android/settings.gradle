@@ -1,0 +1,3 @@
+rootProject.name = 'reactNativeReduxSidemenuTabbarStarter'
+
+include ':app'
