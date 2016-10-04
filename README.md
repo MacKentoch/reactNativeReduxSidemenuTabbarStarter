@@ -13,7 +13,7 @@ Just follow [official website instructions](https://facebook.github.io/react-nat
 npm install
 ```
 
-*laucnh iOS (require `Xcode` to be installed - take it from appStore for free -):*
+*launch iOS (require `Xcode` to be installed - take it from appStore for free -):*
 ```bash
 npm react-native run-ios
 ```
