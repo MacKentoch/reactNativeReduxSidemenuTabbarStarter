@@ -10,20 +10,15 @@ import {
   Navigator,
   StatusBar
 }                           from 'react-native';
-import SideMenu             from 'react-native-side-menu';
 import Icon                 from 'react-native-vector-icons/Ionicons';
 import { AppRoutes }        from '../../../common/config';
 import {
-  SideMenuContent,
   Button
 }                           from '../../components';
 import Home                 from '../home';
 import AppState             from '../appState';
 
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
-const DEFAULT_ROUTE = { id: 1, refView: 'HomeView' };
+const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
 
 /*
   set iOS StatusBar style:
@@ -38,38 +33,30 @@ class App extends Component {
   };
 
   render() {
-    const { sideMenuOpened } = this.state;
-
     return (
-      <SideMenu
-        menu={<SideMenuContent
-                backGndColor="#ECECEC"
-                navigate={this.navigate}
-              />}
-        isOpen={sideMenuOpened}
-        onChange={this.updateSideMenuState}
-        bounceBackOnOverdraw={false}
-        openMenuOffset={OPEN_SIDE_MENU_OFFSET}
-        >
-        <Navigator
-          ref="navigator"
-          initialRoute={ DEFAULT_ROUTE }
-          sceneStyle={ styles.navigator }
-          renderScene={this.renderScene}
-          configureScene={this.configureScene}
-          navigationBar={
-            <Navigator.NavigationBar
-              routeMapper={this.renderRouteMapper()}
-              style={styles.navBar}
-            />
-          }
-        />
-      </SideMenu>
+      <Navigator
+        ref="navigator"
+        initialRoute={ DEFAULT_ROUTE }
+        sceneStyle={ styles.navigator }
+        renderScene={this.renderScene}
+        configureScene={this.configureScene}
+        navigationBar={
+          <Navigator.NavigationBar
+            routeMapper={this.renderRouteMapper()}
+            style={styles.navBar}
+          />
+        }
+      />
     );
   }
 
-  configureScene = () => {
-    return Navigator.SceneConfigs.FadeAndroid;
+  configureScene = (route) => {
+    switch (route.id) {
+    case 'ROOTVIEW':
+      return Navigator.SceneConfigs.FadeAndroid;
+    default:
+      return Navigator.SceneConfigs.FadeAndroid;
+    }
   }
 
   renderScene = (route, navigator) => {

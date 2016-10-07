@@ -1,6 +1,6 @@
 'use strict';
 
-import App from './app/App';
+import App      from './app/App';
 
 export {
   App

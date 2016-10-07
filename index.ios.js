@@ -5,7 +5,7 @@
  */
 
 import { AppRegistry } from 'react-native';
-import reactNativeReduxSidemenuTabbarStarter from './ReactNativeApp/ios/index.ios';
+import reactNativeReduxSidemenuTabbarStarter from './ReactNativeApp/ios/index.ios.js';
 
 AppRegistry.registerComponent(
   'reactNativeReduxSidemenuTabbarStarter',
