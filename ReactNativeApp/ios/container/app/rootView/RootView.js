@@ -12,13 +12,13 @@ import {
 }                           from 'react-native';
 import SideMenu             from 'react-native-side-menu';
 import Icon                 from 'react-native-vector-icons/Ionicons';
-import { tabBarContent }    from '../../../common/config';
+import { tabBarContent }    from '../../../../common/config';
 import {
   SideMenuContent
-}                           from '../../components';
+}                           from '../../../components';
 import TabBarItem           from './tabBarItem/TabBarItem';
-import Home                 from '../home';
-import AppState             from '../appState';
+import Home                 from '../../home';
+import AppState             from '../../appState';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -59,7 +59,7 @@ class RootView extends Component {
           <Icon.TabBarItemIOS
             iconName={'ios-home-outline'}
             selectedIconName={'ios-home'}
-            title={'Accueil'}
+            title={'Home'}
             selected={selectedTabbar === 'home'}
             allowFontScaling={false}
             onPress={this.onTabBarItemPress}>

@@ -6,7 +6,6 @@ import React, {
 import {
   StyleSheet,
   Text,
-  Dimensions,
   Navigator,
   StatusBar
 }                           from 'react-native';
@@ -15,8 +14,8 @@ import { AppRoutes }        from '../../../common/config';
 import {
   Button
 }                           from '../../components';
-import Home                 from '../home';
-import AppState             from '../appState';
+import RootView             from './rootView/RootView';
+import ModalDemo            from '../../modals';
 
 const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
 
@@ -54,6 +53,8 @@ class App extends Component {
     switch (route.id) {
     case 'ROOTVIEW':
       return Navigator.SceneConfigs.FadeAndroid;
+    case 'MODAL_DEMO':
+      return Navigator.SceneConfigs.FloatFromRight;
     default:
       return Navigator.SceneConfigs.FadeAndroid;
     }
@@ -61,28 +62,26 @@ class App extends Component {
 
   renderScene = (route, navigator) => {
     switch (route.id) {
-    case 1:
-      const route1 = AppRoutes.getRouteFromRouteId(1);
+    case 'ROOTVIEW':
       return (
-        <Home
-          ref={route1.refView}
+        <RootView
+          ref={'ROOTVIEW'}
           navigator={navigator}
           navigate={this.navigate}
         />
       );
-    case 2:
-      const route2 = AppRoutes.getRouteFromRouteId(2);
+    case 'MODAL_DEMO':
       return (
-        <AppState
-          ref={route2.refView}
+        <ModalDemo
+          ref={'MODALDEMO'}
           navigator={navigator}
           navigate={this.navigate}
         />
       );
     default:
       return (
-        <Home
-          ref={route1.refView}
+        <RootView
+          ref={'ROOTVIEW'}
           navigator={navigator}
           navigate={this.navigate}
         />
@@ -94,21 +93,19 @@ class App extends Component {
     const routes = AppRoutes.getAllRoutes();
     return  {
       Title : (route, navigator, index, navState) => {
-        const currentRouteId  = navState.routeStack[index].id;
         return (
           <Text style={styles.titleNavText}>
-            {routes[currentRouteId - 1].navbar.navBarTitle}
+            {routes.id}
           </Text>
         );
       },
       LeftButton : (route, navigator, index, navState) => {
-        const currentRouteId  = navState.routeStack[index].id;
         return (
           <Button
             style={styles.leftNavButton}
             onPress={this.toggleSideMenu}>
             <Icon
-              name={routes[currentRouteId - 1].navbar.navBarLeftIconName}
+              name={'ios-menu'}
               size={32}
               color={'#333333'}
             />
