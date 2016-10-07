@@ -2,23 +2,26 @@
 
 import React, {
   Component
-}                           from 'react';
+}                             from 'react';
 import {
   StyleSheet,
   View,
   TabBarIOS,
   Dimensions,
 
-}                           from 'react-native';
-import SideMenu             from 'react-native-side-menu';
-import Icon                 from 'react-native-vector-icons/Ionicons';
-import { tabBarContent }    from '../../../../common/config';
+}                             from 'react-native';
+import { connect }            from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions           from '../../../../common/redux/modules/sidemenu';
+import SideMenu               from 'react-native-side-menu';
+import Icon                   from 'react-native-vector-icons/Ionicons';
+import { tabBarContent }      from '../../../../common/config';
 import {
   SideMenuContent
-}                           from '../../../components';
-import TabBarItem           from './tabBarItem/TabBarItem';
-import Home                 from '../../home';
-import AppState             from '../../appState';
+}                             from '../../../components';
+import TabBarItem             from './tabBarItem/TabBarItem';
+import Home                   from '../../home';
+import AppState               from '../../appState';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -28,7 +31,6 @@ const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 class RootView extends Component {
 
   state = {
-    sideMenuOpened: false,
     tabBarItems: [...tabBarContent],
     selectedTabbar: 'home'
   };
@@ -38,7 +40,8 @@ class RootView extends Component {
   }
 
   render() {
-    const { sideMenuOpened, selectedTabbar } = this.state;
+    const { sideMenuOpened } = this.props;
+    const { selectedTabbar } = this.state;
 
     return (
       <SideMenu
@@ -104,9 +107,8 @@ class RootView extends Component {
   }
 
   updateSideMenuState = (isOpened) => {
-    this.setState({
-      sideMenuOpened: isOpened
-    });
+    const { actions: { setSideMenuState } } = this.props;
+    setSideMenuState(isOpened);
   }
 
   toggleSideMenu = () => {
@@ -144,4 +146,26 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RootView;
+
+const mapStateToProps = (state) => {
+  return {
+    sideMenuOpened: state.sidemenu.isOpened
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions : bindActionCreators(
+      {
+        openSideMenu: actions.openSideMenu,
+        closeSideMenu: actions.closeSideMenu,
+        setSideMenuState: actions.setSideMenuState
+      },
+      dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RootView);
