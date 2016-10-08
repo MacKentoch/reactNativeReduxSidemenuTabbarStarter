@@ -3,7 +3,7 @@
 export const tabBarContent = [
   {
     id: 'Home',
-    // componentName: 'Home',
+    componentName: 'Home',
     isDefault: true,
     iconName: 'ios-home-outline',
     selectedIconName: 'ios-home',
@@ -11,7 +11,7 @@ export const tabBarContent = [
   },
   {
     id: 'AppState',
-    // componentName: 'AppState',
+    componentName: 'AppState',
     isDefault: false,
     iconName: 'ios-albums-outline',
     selectedIconName: 'ios-albums',

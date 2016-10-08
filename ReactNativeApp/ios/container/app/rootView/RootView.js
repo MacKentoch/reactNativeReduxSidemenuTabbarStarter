@@ -4,13 +4,10 @@ import React, {
   Component
 }                             from 'react';
 import {
-  StyleSheet,
-  View,
   TabBarIOS
 }                             from 'react-native';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Icon                   from 'react-native-vector-icons/Ionicons';
 import { tabBarContent }      from '../../../../common/config';
 import TabBarItem             from './tabBarItem/TabBarItem';
 import Home                   from '../../home';
@@ -62,10 +59,23 @@ class RootView extends Component {
     const { tabBarItems } = this.state;
     const tabBarItemWithComponents = tabBarItems.map(
       item => {
+        switch (item.componentName) {
+        case 'Home':
+          return {
+            ...item,
+            component: <Home />
+          };
+        case 'AppState':
         return {
           ...item,
-          component: <item.componentName />
+          component: <AppState />
         };
+        default:
+        return {
+          ...item,
+          component: <Home />
+        };
+        }
       }
     );
     this.setState({tabBarItems: [...tabBarItemWithComponents]});
@@ -75,20 +85,6 @@ class RootView extends Component {
     this.setState({ selectedTabbar: tabBarSelected });
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  tabContent: {
-    backgroundColor: '#fff',
-    flex: 1
-  },
-  tabText: {
-    color: '#4A4A4A'
-  }
-});
 
 
 const mapStateToProps = (state) => {
