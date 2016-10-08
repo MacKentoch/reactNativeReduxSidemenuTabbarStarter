@@ -42,7 +42,7 @@ StatusBar.setBarStyle('default', true);
 
 class App extends Component {
   render() {
-    const { sideMenuOpened } = this.props;
+    // const { sideMenuOpened } = this.props;
 
     return (
       // <SideMenu
@@ -62,12 +62,6 @@ class App extends Component {
           sceneStyle={ styles.navigator }
           renderScene={this.renderScene}
           configureScene={this.configureScene}
-          navigationBar={
-            <Navigator.NavigationBar
-              routeMapper={this.renderRouteMapper()}
-              style={styles.navBar}
-            />
-          }
         />
       // </SideMenu>
     );
@@ -98,6 +92,8 @@ class App extends Component {
           navigator={navigator}
           navigate={this.navigate}
           sidemenuRoutes={SIDEMENU_ROUTES}
+          onSideNavButtonPress={this.handlesSideNavButtonPress}
+          allRoutes={ROUTES}
         />
       );
     case 'MODAL_DEMO':

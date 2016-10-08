@@ -1,9 +1,9 @@
 'use strict';
 
-import { AppState }           from '../../../scenes';
+import { ModalDemo }          from '../../../modals';
 import { bindActionCreators } from 'redux';
 import { connect }            from 'react-redux';
-import * as modalsActions      from '../../../../common/redux/modules/modals';
+import * as modalsActions     from '../../../../common/redux/modules/modals';
 
 const mapStateToProps = (state) => {
   return {
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppState);
+)(ModalDemo);
