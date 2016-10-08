@@ -1,10 +1,12 @@
 'use strict';
 
 import React, {
-  Component
+  Component,
+  PropTypes
 }                             from 'react';
 import {
-  TabBarIOS
+  TabBarIOS,
+  Dimensions
 }                             from 'react-native';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,7 +15,14 @@ import { tabBarContent }      from '../../../../common/config';
 import TabBarItem             from './tabBarItem/TabBarItem';
 import Home                   from '../../scenes/home';
 import AppState               from '../../scenes/appState';
+import {
+  SideMenuContent
+}                             from '../../../components';
+import SideMenu               from 'react-native-side-menu';
 
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 
 class RootView extends Component {
 
@@ -28,31 +37,44 @@ class RootView extends Component {
 
   render() {
     const { selectedTabbar, tabBarItems } = this.state;
+    const { sidemenuRoutes, onSideNavButtonPress, sideMenuOpened } = this.props;
 
     return (
-      <TabBarIOS
-        tintColor={'#333333'}
-        barTintColor={'#fff'}>
-        {
-          tabBarItems.map(
-            (tabBarItem, tabBarItemIdx) => {
-              const { id, componentName, iconName, selectedIconName, title, component } = tabBarItem;
-              return (
-                <TabBarItem
-                  key={tabBarItemIdx}
-                  tabId={id}
-                  iconName={iconName}
-                  selectedIconName={selectedIconName}
-                  title={title}
-                  selected={componentName === selectedTabbar}
-                  onPress={this.onTabBarItemPress}>
-                  {component}
-                </TabBarItem>
-              );
-            }
-          )
-        }
-      </TabBarIOS>
+      <SideMenu
+        menu={<SideMenuContent
+                backGndColor="#ECECEC"
+                routes={sidemenuRoutes}
+                navButtonPress={onSideNavButtonPress}
+              />}
+        isOpen={sideMenuOpened}
+        onChange={this.updateSideMenuState}
+        bounceBackOnOverdraw={false}
+        openMenuOffset={OPEN_SIDE_MENU_OFFSET}
+        >
+        <TabBarIOS
+          tintColor={'#333333'}
+          barTintColor={'#fff'}>
+          {
+            tabBarItems.map(
+              (tabBarItem, tabBarItemIdx) => {
+                const { id, componentName, iconName, selectedIconName, title, component } = tabBarItem;
+                return (
+                  <TabBarItem
+                    key={tabBarItemIdx}
+                    tabId={id}
+                    iconName={iconName}
+                    selectedIconName={selectedIconName}
+                    title={title}
+                    selected={componentName === selectedTabbar}
+                    onPress={this.onTabBarItemPress}>
+                    {component}
+                  </TabBarItem>
+                );
+              }
+            )
+          }
+        </TabBarIOS>
+      </SideMenu>
     );
   }
 
@@ -114,6 +136,11 @@ class RootView extends Component {
    }
  }
 }
+
+RootView.propTypes = {
+  sidemenuRoutes: PropTypes.array,
+  onSideNavButtonPress: PropTypes.func.isRequired
+};
 
 
 const mapStateToProps = (state) => {

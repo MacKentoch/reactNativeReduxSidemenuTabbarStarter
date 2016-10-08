@@ -45,17 +45,17 @@ class App extends Component {
     const { sideMenuOpened } = this.props;
 
     return (
-      <SideMenu
-        menu={<SideMenuContent
-                backGndColor="#ECECEC"
-                routes={SIDEMENU_ROUTES}
-                navButtonPress={this.handlesSideNavButtonPress}
-              />}
-        isOpen={sideMenuOpened}
-        onChange={this.updateSideMenuState}
-        bounceBackOnOverdraw={false}
-        openMenuOffset={OPEN_SIDE_MENU_OFFSET}
-        >
+      // <SideMenu
+      //   menu={<SideMenuContent
+      //           backGndColor="#ECECEC"
+      //           routes={SIDEMENU_ROUTES}
+      //           navButtonPress={this.handlesSideNavButtonPress}
+      //         />}
+      //   isOpen={sideMenuOpened}
+      //   onChange={this.updateSideMenuState}
+      //   bounceBackOnOverdraw={false}
+      //   openMenuOffset={OPEN_SIDE_MENU_OFFSET}
+      //   >
         <Navigator
           ref="navigator"
           initialRoute={ DEFAULT_ROUTE }
@@ -69,7 +69,7 @@ class App extends Component {
             />
           }
         />
-      </SideMenu>
+      // </SideMenu>
     );
   }
 
@@ -97,6 +97,7 @@ class App extends Component {
           ref={'ROOTVIEW'}
           navigator={navigator}
           navigate={this.navigate}
+          sidemenuRoutes={SIDEMENU_ROUTES}
         />
       );
     case 'MODAL_DEMO':
