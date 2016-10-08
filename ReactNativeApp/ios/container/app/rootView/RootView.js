@@ -8,6 +8,7 @@ import {
 }                             from 'react-native';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as sidemenuActions   from '../../../../common/redux/modules/sidemenu';
 import { tabBarContent }      from '../../../../common/config';
 import TabBarItem             from './tabBarItem/TabBarItem';
 import Home                   from '../../scenes/home';
@@ -81,15 +82,44 @@ class RootView extends Component {
     this.setState({tabBarItems: [...tabBarItemWithComponents]});
   }
 
+  /*
+    tabbar methods:
+  */
   onTabBarItemPress = (tabBarSelected) => {
     this.setState({ selectedTabbar: tabBarSelected });
   }
+
+  /*
+    sidemenu methods:
+  */
+ updateSideMenuState = (isOpened) => {
+   const { actions: { setSideMenuState } } = this.props;
+   setSideMenuState(isOpened);
+ }
+
+ toggleSideMenu = () => {
+   const { actions: {toggleSideMenu } } = this.props;
+   toggleSideMenu();
+ }
+
+ openSideMenu = () => {
+   const { actions: { openSideMenu } } = this.props;
+   openSideMenu();
+ }
+
+ closeSideMenu = () => {
+   const { sideMenuOpened, actions: { closeSideMenu } } = this.props;
+   if (sideMenuOpened) {
+     closeSideMenu();
+   }
+ }
 }
 
 
 const mapStateToProps = (state) => {
   return {
-    // nothing to map right now
+    // sidemenu props:
+    sideMenuOpened: state.sidemenu.isOpened
   };
 };
 
@@ -97,7 +127,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions : bindActionCreators(
       {
-        // nothing to map right now
+        // sidemenu actions:
+        openSideMenu: sidemenuActions.openSideMenu,
+        closeSideMenu: sidemenuActions.closeSideMenu,
+        toggleSideMenu: sidemenuActions.toggleSideMenu,
+        setSideMenuState: sidemenuActions.setSideMenuState
       },
       dispatch)
   };
