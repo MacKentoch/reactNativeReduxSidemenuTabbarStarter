@@ -1,7 +1,8 @@
 'use strict';
 
 import React, {
-  Component
+  Component,
+  PropTypes
 }                     from 'react';
 import {
   StyleSheet,
@@ -11,11 +12,9 @@ import {
   ScrollView
 }                     from 'react-native';
 import shallowCompare from 'react-addons-shallow-compare';
-import { AppRoutes }  from '../../../common/config';
 import SideMenuLink   from './SideMenuLink';
 
 const window = Dimensions.get('window');
-const routes = AppRoutes.getAllRoutes();
 
 class SideMenuContent extends Component {
 
@@ -24,6 +23,9 @@ class SideMenuContent extends Component {
   }
 
   render() {
+    const { routes } = this.props;
+    console.log(routes);
+
     return (
       <ScrollView
         style={[styles.container,{backgroundColor: this.props.backGndColor}]}
@@ -60,7 +62,18 @@ class SideMenuContent extends Component {
 }
 
 SideMenuContent.propTypes = {
-  backGndColor: React.PropTypes.string
+  backGndColor: React.PropTypes.string,
+  routes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      sidemenu: PropTypes.shape({
+        sideMenuButtonText: PropTypes.string.isRequired,
+        iconType: PropTypes.string.isRequired,
+        iconName: PropTypes.string.isRequired,
+        iconSize: PropTypes.number.isRequired
+      })
+    })
+  )
 };
 
 SideMenuContent.defaultProps = {

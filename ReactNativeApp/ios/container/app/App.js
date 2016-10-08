@@ -27,6 +27,10 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 
 const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
+// all routes:
+const ROUTES = AppRoutes.getAllRoutes();
+// routes to display within sidemenu:
+const SIDEMENU_ROUTES = ROUTES.filter(route => route.sidemenu.showInSideMenu);
 
 /*
   set iOS StatusBar style:
@@ -42,6 +46,7 @@ class App extends Component {
       <SideMenu
         menu={<SideMenuContent
                 backGndColor="#ECECEC"
+                routes={SIDEMENU_ROUTES}
                 navigate={this.navigate}
               />}
         isOpen={sideMenuOpened}

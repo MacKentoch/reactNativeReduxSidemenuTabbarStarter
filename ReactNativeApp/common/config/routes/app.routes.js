@@ -1,34 +1,43 @@
 'use strict';
 
-const routes = [{
-  id                  : 1,
-  refView             : 'HomeView',
-  sidemenu: {
-    sideMenuButtonText  : 'Home',
-    iconType            : 'Ionicons',
-    iconName            : 'ios-home-outline',
-    iconSize            : 22,
+const routes = [
+  // rootview with tabbar:
+  {
+    id: 'ROOTVIEW',
+    refView: 'ROOTVIEW',
+    sidemenu: {
+      // should be added in sidemenu:
+      showInSideMenu: false,
+      sideMenuButtonText: 'root',
+      iconType: 'Ionicons',
+      iconName: 'ios-home-outline',
+      iconSize: 22,
+    },
+    navbar: {
+      navBarTitle: 'root',
+      navBarLeftIconName: 'ios-menu',
+      navBarLeftIconSize: 32
+    }
   },
-  navbar: {
-    navBarTitle         : 'Home',
-    navBarLeftIconName  : 'ios-menu',
-    navBarLeftIconSize  : 32
+  // demoModal:
+  {
+    id: 'DEMO_MODAL',
+    refView: 'DEMO_MODAL',
+    sidemenu: {
+      // should be added in sidemenu:
+      showInSideMenu: true,
+      sideMenuButtonText: 'demo modal',
+      iconType: 'ionicons',
+      iconName: 'ios-albums-outline',
+      iconSize: 22,
+    },
+    navbar: {
+      navBarTitle: 'demo modal',
+      navBarLeftIconName: 'ios-menu',
+      navBarLeftIconSize: 32
+    }
   }
-}, {
-  id                  : 2,
-  refView             : 'AppState',
-  sidemenu: {
-    sideMenuButtonText  : 'App State',
-    iconType            : 'ionicons',
-    iconName            : 'ios-albums-outline',
-    iconSize            : 22,
-  },
-  navbar: {
-    navBarTitle         : 'App State',
-    navBarLeftIconName  : 'ios-menu',
-    navBarLeftIconSize  : 32
-  }
-}];
+];
 
 
 class AppRoutesClass {
