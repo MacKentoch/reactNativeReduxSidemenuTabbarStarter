@@ -29,15 +29,15 @@ class AppState extends Component {
         <View style={styles.subContainer}>
           <Text>
             currentView:
-            {this.props.currentView.currentView}
+            {this.props.currentView}
           </Text>
           <Text>
             enterTime:
-            {this.props.currentView.enterTime}
+            {this.props.enterTime}
           </Text>
           <Text>
             leaveTime:
-            {this.props.currentView.leaveTime}
+            {this.props.leaveTime}
           </Text>
         </View>
       </View>

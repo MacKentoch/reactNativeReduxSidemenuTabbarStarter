@@ -10,19 +10,19 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { tabBarContent }      from '../../../../common/config';
 import TabBarItem             from './tabBarItem/TabBarItem';
-import Home                   from '../../home';
-import AppState               from '../../appState';
+import Home                   from '../../scenes/home';
+import AppState               from '../../scenes/appState';
 
 
 class RootView extends Component {
 
   state = {
     tabBarItems: [...tabBarContent],
-    selectedTabbar: 'Home'
+    selectedTabbar: 'Home' // default tab
   };
 
   componentDidMount() {
-    this.addComponents();
+    this.addComponents(); // add matching tab child components into tabBarItems
   }
 
   render() {
@@ -89,7 +89,7 @@ class RootView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-
+    // nothing to map right now
   };
 };
 
@@ -97,6 +97,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions : bindActionCreators(
       {
+        // nothing to map right now
       },
       dispatch)
   };

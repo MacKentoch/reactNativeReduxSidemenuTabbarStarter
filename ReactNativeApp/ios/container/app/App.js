@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
+    // sidemenu props:
     sideMenuOpened: state.sidemenu.isOpened
   };
 };
@@ -215,6 +216,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions : bindActionCreators(
       {
+        // sidemenu actions:
         openSideMenu: sidemenuActions.openSideMenu,
         closeSideMenu: sidemenuActions.closeSideMenu,
         toggleSideMenu: sidemenuActions.toggleSideMenu,
