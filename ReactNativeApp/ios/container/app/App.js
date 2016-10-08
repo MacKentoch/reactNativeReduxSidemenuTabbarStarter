@@ -7,8 +7,7 @@ import {
   StyleSheet,
   Text,
   Navigator,
-  StatusBar,
-  Dimensions
+  StatusBar
 }                             from 'react-native';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,15 +15,10 @@ import * as sidemenuActions   from '../../../common/redux/modules/sidemenu';
 import Icon                   from 'react-native-vector-icons/Ionicons';
 import { AppRoutes }          from '../../../common/config';
 import {
-  Button,
-  SideMenuContent
+  Button
 }                             from '../../components';
 import RootView               from './rootView/RootView';
 import ModalDemo              from '../modals/modalDemo';
-import SideMenu               from 'react-native-side-menu';
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 
 const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
 // all routes:
@@ -42,33 +36,19 @@ StatusBar.setBarStyle('default', true);
 
 class App extends Component {
   render() {
-    // const { sideMenuOpened } = this.props;
-
     return (
-      // <SideMenu
-      //   menu={<SideMenuContent
-      //           backGndColor="#ECECEC"
-      //           routes={SIDEMENU_ROUTES}
-      //           navButtonPress={this.handlesSideNavButtonPress}
-      //         />}
-      //   isOpen={sideMenuOpened}
-      //   onChange={this.updateSideMenuState}
-      //   bounceBackOnOverdraw={false}
-      //   openMenuOffset={OPEN_SIDE_MENU_OFFSET}
-      //   >
-        <Navigator
-          ref="navigator"
-          initialRoute={ DEFAULT_ROUTE }
-          sceneStyle={ styles.navigator }
-          renderScene={this.renderScene}
-          configureScene={this.configureScene}
-        />
-      // </SideMenu>
+      // this navigator to present modals over rootView
+      <Navigator
+        ref="navigator"
+        initialRoute={ DEFAULT_ROUTE }
+        sceneStyle={ styles.navigator }
+        renderScene={this.renderScene}
+        configureScene={this.configureScene}
+      />
     );
   }
 
   handlesSideNavButtonPress = (toRoute) => {
-    console.log('should route to :', toRoute);
     this.refs.navigator.push({id: toRoute.id});
   }
 
@@ -77,7 +57,7 @@ class App extends Component {
     case 'ROOTVIEW':
       return Navigator.SceneConfigs.FadeAndroid;
     case 'MODAL_DEMO':
-      return Navigator.SceneConfigs.FloatFromRight;
+      return Navigator.SceneConfigs.FloatFromRight; // Navigator.SceneConfigs.PushFromRight;// Navigator.SceneConfigs.FloatFromRight;
     default:
       return Navigator.SceneConfigs.FadeAndroid;
     }
@@ -142,28 +122,6 @@ class App extends Component {
         return null;
       }
     };
-  }
-
-  updateSideMenuState = (isOpened) => {
-    const { actions: { setSideMenuState } } = this.props;
-    setSideMenuState(isOpened);
-  }
-
-  toggleSideMenu = () => {
-    const { actions: {toggleSideMenu } } = this.props;
-    toggleSideMenu();
-  }
-
-  openSideMenu = () => {
-    const { actions: { openSideMenu } } = this.props;
-    openSideMenu();
-  }
-
-  closeSideMenu = () => {
-    const { sideMenuOpened, actions: { closeSideMenu } } = this.props;
-    if (sideMenuOpened) {
-      closeSideMenu();
-    }
   }
 }
 
