@@ -21,8 +21,8 @@ const routes = [
   },
   // demoModal:
   {
-    id: 'DEMO_MODAL',
-    refView: 'DEMO_MODAL',
+    id: 'MODAL_DEMO',
+    refView: 'MODAL_DEMO',
     sidemenu: {
       // should be added in sidemenu:
       showInSideMenu: true,

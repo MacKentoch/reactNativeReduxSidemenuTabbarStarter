@@ -50,7 +50,6 @@ class App extends Component {
                 backGndColor="#ECECEC"
                 routes={SIDEMENU_ROUTES}
                 navButtonPress={this.handlesSideNavButtonPress}
-                navigate={this.navigate}
               />}
         isOpen={sideMenuOpened}
         onChange={this.updateSideMenuState}
@@ -100,7 +99,7 @@ class App extends Component {
           navigate={this.navigate}
         />
       );
-    case 'DEMO_MODAL':
+    case 'MODAL_DEMO':
       return (
         <ModalDemo
           ref={'MODALDEMO'}
@@ -146,18 +145,6 @@ class App extends Component {
         return null;
       }
     };
-  }
-
-  navigate = (route) => {
-    const routeStack = [...this.refs.navigator.getCurrentRoutes()];
-    const previousRouteId = routeStack[routeStack.length - 1].id;
-    if (route.id !== previousRouteId) {
-      this.refs.navigator.replace(route);
-    }
-
-    if (this.state.sideMenuOpened) {
-      this.closeSideMenu();
-    }
   }
 
   updateSideMenuState = (isOpened) => {
