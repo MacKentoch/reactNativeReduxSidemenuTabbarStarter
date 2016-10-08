@@ -30,7 +30,9 @@ const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
 // all routes:
 const ROUTES = AppRoutes.getAllRoutes();
 // routes to display within sidemenu:
-const SIDEMENU_ROUTES = ROUTES.filter(route => route.sidemenu.showInSideMenu);
+const SIDEMENU_ROUTES = ROUTES.filter(
+  route => route.sidemenu && route.sidemenu.showInSideMenu
+);
 
 /*
   set iOS StatusBar style:

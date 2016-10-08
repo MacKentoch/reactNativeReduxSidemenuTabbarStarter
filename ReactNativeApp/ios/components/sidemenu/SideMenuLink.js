@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 });
 
 SideMenuLink.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string,
   iconName: PropTypes.string.isRequired,
   iconSize: PropTypes.number.isRequired,
   handleNavButtonPress: PropTypes.func.isRequired,

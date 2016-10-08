@@ -28,7 +28,7 @@ const routes = [
       showInSideMenu: true,
       sideMenuButtonText: 'demo modal',
       iconType: 'ionicons',
-      iconName: 'ios-albums-outline',
+      iconName: 'ios-glasses-outline',
       iconSize: 22,
     },
     navbar: {
