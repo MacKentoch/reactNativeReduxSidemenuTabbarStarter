@@ -2,20 +2,29 @@
 
 import React, {
   Component
-}                           from 'react';
+}                             from 'react';
 import {
   StyleSheet,
   Text,
   Navigator,
-  StatusBar
-}                           from 'react-native';
-import Icon                 from 'react-native-vector-icons/Ionicons';
-import { AppRoutes }        from '../../../common/config';
+  StatusBar,
+  Dimensions
+}                             from 'react-native';
+import { connect }            from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as sidemenuActions   from '../../../common/redux/modules/sidemenu';
+import Icon                   from 'react-native-vector-icons/Ionicons';
+import { AppRoutes }          from '../../../common/config';
 import {
-  Button
-}                           from '../../components';
-import RootView             from './rootView/RootView';
-import ModalDemo            from '../../modals';
+  Button,
+  SideMenuContent
+}                             from '../../components';
+import RootView               from './rootView/RootView';
+import ModalDemo              from '../../modals';
+import SideMenu               from 'react-native-side-menu';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 
 const DEFAULT_ROUTE = { id: 'ROOTVIEW' };
 
@@ -26,26 +35,34 @@ StatusBar.setBarStyle('default', true);
 // StatusBar.setBarStyle('light-content', true);
 
 class App extends Component {
-
-  state = {
-    sideMenuOpened: false
-  };
-
   render() {
+    const { sideMenuOpened } = this.props;
+
     return (
-      <Navigator
-        ref="navigator"
-        initialRoute={ DEFAULT_ROUTE }
-        sceneStyle={ styles.navigator }
-        renderScene={this.renderScene}
-        configureScene={this.configureScene}
-        navigationBar={
-          <Navigator.NavigationBar
-            routeMapper={this.renderRouteMapper()}
-            style={styles.navBar}
-          />
-        }
-      />
+      <SideMenu
+        menu={<SideMenuContent
+                backGndColor="#ECECEC"
+                navigate={this.navigate}
+              />}
+        isOpen={sideMenuOpened}
+        onChange={this.updateSideMenuState}
+        bounceBackOnOverdraw={false}
+        openMenuOffset={OPEN_SIDE_MENU_OFFSET}
+        >
+        <Navigator
+          ref="navigator"
+          initialRoute={ DEFAULT_ROUTE }
+          sceneStyle={ styles.navigator }
+          renderScene={this.renderScene}
+          configureScene={this.configureScene}
+          navigationBar={
+            <Navigator.NavigationBar
+              routeMapper={this.renderRouteMapper()}
+              style={styles.navBar}
+            />
+          }
+        />
+      </SideMenu>
     );
   }
 
@@ -131,28 +148,24 @@ class App extends Component {
   }
 
   updateSideMenuState = (isOpened) => {
-    this.setState({
-      sideMenuOpened: isOpened
-    });
+    const { actions: { setSideMenuState } } = this.props;
+    setSideMenuState(isOpened);
   }
 
   toggleSideMenu = () => {
-    this.setState({
-      sideMenuOpened: !this.state.sideMenuOpened
-    });
+    const { actions: {toggleSideMenu } } = this.props;
+    toggleSideMenu();
   }
 
   openSideMenu = () => {
-    this.setState({
-      sideMenuOpened : false
-    });
+    const { actions: { openSideMenu } } = this.props;
+    openSideMenu();
   }
 
   closeSideMenu = () => {
-    if (this.state.sideMenuOpened) {
-      this.setState({
-        sideMenuOpened : false
-      });
+    const { sideMenuOpened, actions: { closeSideMenu } } = this.props;
+    if (sideMenuOpened) {
+      closeSideMenu();
     }
   }
 }
@@ -192,4 +205,26 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    sideMenuOpened: state.sidemenu.isOpened
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions : bindActionCreators(
+      {
+        openSideMenu: sidemenuActions.openSideMenu,
+        closeSideMenu: sidemenuActions.closeSideMenu,
+        toggleSideMenu: sidemenuActions.toggleSideMenu,
+        setSideMenuState: sidemenuActions.setSideMenuState
+      },
+      dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

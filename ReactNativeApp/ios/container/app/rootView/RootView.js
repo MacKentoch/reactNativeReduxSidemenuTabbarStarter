@@ -6,33 +6,22 @@ import React, {
 import {
   StyleSheet,
   View,
-  TabBarIOS,
-  Dimensions,
-
+  TabBarIOS
 }                             from 'react-native';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions           from '../../../../common/redux/modules/sidemenu';
-import SideMenu               from 'react-native-side-menu';
 import Icon                   from 'react-native-vector-icons/Ionicons';
 import { tabBarContent }      from '../../../../common/config';
-import {
-  SideMenuContent
-}                             from '../../../components';
 import TabBarItem             from './tabBarItem/TabBarItem';
 import Home                   from '../../home';
 import AppState               from '../../appState';
-
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const OPEN_SIDE_MENU_OFFSET = SCREEN_WIDTH * 0.8;
 
 
 class RootView extends Component {
 
   state = {
     tabBarItems: [...tabBarContent],
-    selectedTabbar: 'home'
+    selectedTabbar: 'Home'
   };
 
   componentDidMount() {
@@ -40,52 +29,32 @@ class RootView extends Component {
   }
 
   render() {
-    const { sideMenuOpened } = this.props;
-    const { selectedTabbar } = this.state;
+    const { selectedTabbar, tabBarItems } = this.state;
 
     return (
-      <SideMenu
-        menu={<SideMenuContent
-                backGndColor="#ECECEC"
-                navigate={this.navigate}
-              />}
-        isOpen={sideMenuOpened}
-        onChange={this.updateSideMenuState}
-        bounceBackOnOverdraw={false}
-        openMenuOffset={OPEN_SIDE_MENU_OFFSET}
-        >
-
-        <TabBarIOS
-          tintColor={'#333333'}
-          barTintColor={'#fff'}>
-
-          <Icon.TabBarItemIOS
-            iconName={'ios-home-outline'}
-            selectedIconName={'ios-home'}
-            title={'Home'}
-            selected={selectedTabbar === 'home'}
-            allowFontScaling={false}
-            onPress={this.onTabBarItemPress}>
-            <View style={styles.tabContent}>
-              <Home />
-            </View>
-          </Icon.TabBarItemIOS>
-
-          <Icon.TabBarItemIOS
-            iconName={'ios-albums-outline'}
-            selectedIconName={'ios-albums'}
-            title={'appState'}
-            selected={selectedTabbar === 'appState'}
-            allowFontScaling={false}
-            onPress={this.onTabBarItemPress}>
-            <View style={styles.tabContent}>
-              <AppState />
-            </View>
-          </Icon.TabBarItemIOS>
-
-        </TabBarIOS>
-
-      </SideMenu>
+      <TabBarIOS
+        tintColor={'#333333'}
+        barTintColor={'#fff'}>
+        {
+          tabBarItems.map(
+            (tabBarItem, tabBarItemIdx) => {
+              const { id, componentName, iconName, selectedIconName, title, component } = tabBarItem;
+              return (
+                <TabBarItem
+                  key={tabBarItemIdx}
+                  tabId={id}
+                  iconName={iconName}
+                  selectedIconName={selectedIconName}
+                  title={title}
+                  selected={componentName === selectedTabbar}
+                  onPress={this.onTabBarItemPress}>
+                  {component}
+                </TabBarItem>
+              );
+            }
+          )
+        }
+      </TabBarIOS>
     );
   }
 
@@ -104,31 +73,6 @@ class RootView extends Component {
 
   onTabBarItemPress = (tabBarSelected) => {
     this.setState({ selectedTabbar: tabBarSelected });
-  }
-
-  updateSideMenuState = (isOpened) => {
-    const { actions: { setSideMenuState } } = this.props;
-    setSideMenuState(isOpened);
-  }
-
-  toggleSideMenu = () => {
-    this.setState({
-      sideMenuOpened: !this.state.sideMenuOpened
-    });
-  }
-
-  openSideMenu = () => {
-    this.setState({
-      sideMenuOpened : false
-    });
-  }
-
-  closeSideMenu = () => {
-    if (this.state.sideMenuOpened) {
-      this.setState({
-        sideMenuOpened : false
-      });
-    }
   }
 }
 
@@ -149,7 +93,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    sideMenuOpened: state.sidemenu.isOpened
+
   };
 };
 
@@ -157,9 +101,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions : bindActionCreators(
       {
-        openSideMenu: actions.openSideMenu,
-        closeSideMenu: actions.closeSideMenu,
-        setSideMenuState: actions.setSideMenuState
       },
       dispatch)
   };
