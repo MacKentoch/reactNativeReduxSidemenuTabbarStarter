@@ -20,7 +20,7 @@ import {
   SideMenuContent
 }                             from '../../components';
 import RootView               from './rootView/RootView';
-import ModalDemo              from '../../modals';
+import ModalDemo              from '../modals/modalDemo';
 import SideMenu               from 'react-native-side-menu';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -49,6 +49,7 @@ class App extends Component {
         menu={<SideMenuContent
                 backGndColor="#ECECEC"
                 routes={SIDEMENU_ROUTES}
+                navigator={this.refs.navigator}
                 navigate={this.navigate}
               />}
         isOpen={sideMenuOpened}

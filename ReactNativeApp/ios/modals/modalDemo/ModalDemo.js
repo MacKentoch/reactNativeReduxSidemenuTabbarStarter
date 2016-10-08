@@ -1,7 +1,8 @@
 'use strict';
 
 import React, {
-  Component
+  Component,
+  PropTypes
 }                           from 'react';
 import {
   StyleSheet,
@@ -30,5 +31,15 @@ const styles = StyleSheet.create({
     color: '#4A4A4A'
   }
 });
+
+ModalDemo.propTypes = {
+  currentModal: PropTypes.string.isRequired,
+  enterTime: PropTypes.string,
+
+  actions: PropTypes.shape({
+    enterDemoModal: PropTypes.func.isRequired,
+    leaveDemoModal: PropTypes.func.isRequired
+  })
+};
 
 export default ModalDemo;

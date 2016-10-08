@@ -15,8 +15,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
       {
-        enterModalDemo: modalsActions.enterModalDemo,
-        leaveModalDemo: modalsActions.leaveModalDemo
+        enterDemoModal: modalsActions.enterDemoModal,
+        leaveDemoModal: modalsActions.leaveDemoModal
       },
       dispatch
     );
