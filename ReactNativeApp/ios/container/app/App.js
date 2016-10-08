@@ -49,7 +49,7 @@ class App extends Component {
         menu={<SideMenuContent
                 backGndColor="#ECECEC"
                 routes={SIDEMENU_ROUTES}
-                navigator={this.refs.navigator}
+                navButtonPress={this.handlesSideNavButtonPress}
                 navigate={this.navigate}
               />}
         isOpen={sideMenuOpened}
@@ -74,6 +74,11 @@ class App extends Component {
     );
   }
 
+  handlesSideNavButtonPress = (toRoute) => {
+    console.log('should route to :', toRoute);
+    this.refs.navigator.push({id: toRoute.id});
+  }
+
   configureScene = (route) => {
     switch (route.id) {
     case 'ROOTVIEW':
@@ -95,7 +100,7 @@ class App extends Component {
           navigate={this.navigate}
         />
       );
-    case 'MODAL_DEMO':
+    case 'DEMO_MODAL':
       return (
         <ModalDemo
           ref={'MODALDEMO'}

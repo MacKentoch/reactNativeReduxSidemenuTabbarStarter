@@ -24,7 +24,6 @@ class SideMenuContent extends Component {
 
   render() {
     const { routes } = this.props;
-    console.log(routes);
 
     return (
       <ScrollView
@@ -57,12 +56,14 @@ class SideMenuContent extends Component {
   }
 
   handleNavButtonPress = (event, route) => {
-    this.props.navigate(route);
+    const { navButtonPress } = this.props;
+    navButtonPress({id: route.id});
   }
 }
 
 SideMenuContent.propTypes = {
   backGndColor: React.PropTypes.string,
+  navButtonPress: PropTypes.func.isRequired,
   routes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
