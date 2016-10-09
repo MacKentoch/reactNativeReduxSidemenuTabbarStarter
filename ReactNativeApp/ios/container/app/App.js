@@ -52,6 +52,10 @@ class App extends Component {
     this.refs.navigator.push({id: toRoute.id});
   }
 
+  handlesCloseModal = () => {
+    this.refs.navigator.pop();
+  }
+
   configureScene = (route) => {
     switch (route.id) {
     case 'ROOTVIEW':
@@ -81,6 +85,7 @@ class App extends Component {
         <ModalDemo
           ref={'MODALDEMO'}
           navigator={navigator}
+          closeModal={this.handlesCloseModal}
           navigate={this.navigate}
         />
       );
@@ -93,35 +98,6 @@ class App extends Component {
         />
       );
     }
-  }
-
-  renderRouteMapper() {
-    const routes = AppRoutes.getAllRoutes();
-    return  {
-      Title : (route, navigator, index, navState) => {
-        return (
-          <Text style={styles.titleNavText}>
-            {routes.id}
-          </Text>
-        );
-      },
-      LeftButton : (route, navigator, index, navState) => {
-        return (
-          <Button
-            style={styles.leftNavButton}
-            onPress={this.toggleSideMenu}>
-            <Icon
-              name={'ios-menu'}
-              size={32}
-              color={'#333333'}
-            />
-          </Button>
-        );
-      },
-      RightButton : (route, navigator, index, navState) => {
-        return null;
-      }
-    };
   }
 }
 

@@ -108,7 +108,7 @@ class RootView extends Component {
       Title : (route, navigator, index, navState) => {
         return (
           <Text style={styles.titleNavText}>
-            {route.id}
+            {''}
           </Text>
         );
       },
