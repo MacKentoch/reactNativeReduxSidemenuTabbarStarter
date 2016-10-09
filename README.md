@@ -1,6 +1,8 @@
 React Native Redux alternate iOS fast starter combining sidemenu and tabbar
 ====
 
+<img src="https://raw.githubusercontent.com/MacKentoch/reactNativeReduxSidemenuTabbarStarter/master/ios-preview.gif" alt="preview" width="320px"></img>
+
 ### setup and launch
 
 #### setup React Native
